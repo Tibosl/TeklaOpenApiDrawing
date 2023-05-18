@@ -8,7 +8,9 @@ namespace TeklaOpenApiDrawing
 {
     public partial class Form1 : Form
     {
+        //模型
         private static Model _model => new Model();
+        //图纸
         private static DrawingHandler drawingHandler => new DrawingHandler();
 
         public Form1()
