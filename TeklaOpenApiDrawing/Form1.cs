@@ -177,6 +177,7 @@ namespace TeklaOpenApiDrawing
             {
                 GADrawing gADrawing = new GADrawing("GA Drawing", "standard");
                 //如果大小设置为0，边框不显示,设置尺寸为0的话，打印图纸会报错，显示文件损坏
+                gADrawing.Title1 = "GA图";
                 //gADrawing.Layout.SheetSize = new Tekla.Structures.Drawing.Size();
                 gADrawing.PlaceViews();
                 gADrawing.Insert();
@@ -381,7 +382,7 @@ namespace TeklaOpenApiDrawing
             point.Y = Y1;
             point1.X = X2;
             point1.Y = Y2;
-            Line line = new Line(Sheet, point, point1, 0.4);
+            Line line = new Line(Sheet, point, point1);
             line.Insert();
             drawings.CommitChanges();
         }
