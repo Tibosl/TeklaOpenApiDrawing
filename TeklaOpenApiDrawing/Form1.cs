@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tekla.Structures;
 using Tekla.Structures.Drawing;
 using Tekla.Structures.Model;
-using Tekla.Structures;
 
 namespace TeklaOpenApiDrawing
 {
@@ -386,7 +379,7 @@ namespace TeklaOpenApiDrawing
             point.Y = Y1;
             point1.X = X2;
             point1.Y = Y2;
-            Tekla.Structures.Drawing.Line line = new Tekla.Structures.Drawing.Line(Sheet, point, point1, 0.4);
+            Line line = new Line(Sheet, point, point1, 0.4);
             line.Insert();
             drawings.CommitChanges();
         }
