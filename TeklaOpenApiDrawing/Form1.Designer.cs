@@ -45,12 +45,12 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(140, 12);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(410, 304);
+            this.treeView1.Size = new System.Drawing.Size(311, 304);
             this.treeView1.TabIndex = 0;
             // 
             // checkBox1
             // 
-            this.checkBox1.Location = new System.Drawing.Point(12, 12);
+            this.checkBox1.Location = new System.Drawing.Point(13, 12);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(92, 25);
             this.checkBox1.TabIndex = 6;
@@ -151,7 +151,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 324);
+            this.ClientSize = new System.Drawing.Size(457, 324);
             this.Controls.Add(this.btn_editor);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_print);
