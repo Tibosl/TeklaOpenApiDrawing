@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Tekla.Structures;
+using Tekla.Structures.Dialog;
 using Tekla.Structures.Drawing;
+using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-
+using Tekla.Structures.Model.UI;
 namespace TeklaOpenApiDrawing
 {
     public partial class Form1 : Form
@@ -12,12 +15,30 @@ namespace TeklaOpenApiDrawing
         private static Model _model => new Model();
         //图纸
         private static DrawingHandler drawingHandler => new DrawingHandler();
-
+        Tekla.Structures.Model.Events ModelEvents = new Tekla.Structures.Model.Events();
         public Form1()
         {
             if (_model.GetConnectionStatus())
                 InitializeComponent();
             InitTreeData();
+            try
+            {
+                //事件
+                ModelEvents.Interrupted += ModelEvents_Interrupted;
+                ModelEvents.ModelSave += ModelEvents_ModelSave;
+                //事件注册
+                ModelEvents.Register();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void ModelEvents_ModelSave()
+        {
+            MessageBox.Show("模型保存！");
+            return;
         }
 
         /// <summary>
@@ -382,9 +403,104 @@ namespace TeklaOpenApiDrawing
             point.Y = Y1;
             point1.X = X2;
             point1.Y = Y2;
-            Line line = new Line(Sheet, point, point1);
+            Tekla.Structures.Drawing.Line line = new Tekla.Structures.Drawing.Line(Sheet, point, point1);
             line.Insert();
             drawings.CommitChanges();
+        }
+
+        private void ModelEvents_Interrupted()
+        {
+            MessageBox.Show("事件中断");
+            return;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //取消事件注册
+            ModelEvents.UnRegister();
+        }
+
+        private void btn_create_beam_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Picker picker = new Picker();
+                //拾取多个点
+                var pickedPoints = picker.PickPoints(Picker.PickPointEnum.PICK_POLYGON);
+                bool result = false;
+                if (pickedPoints.Count < 2)
+                {
+                    return;
+                }
+                else if (pickedPoints.Count == 2)
+                {
+                    Beam beam = new Beam(Beam.BeamTypeEnum.PANEL)
+                    {
+                        StartPoint = pickedPoints[0] as Point,
+                        EndPoint = pickedPoints[1] as Point
+                    };
+                    beam.Profile.ProfileString = "4000*300";
+                    beam.Material.MaterialString = "C50";
+                    beam.Position.Depth = Position.DepthEnum.FRONT;
+                    result = beam.Insert();
+                }
+                else if (pickedPoints.Count > 2)
+                {
+                    PolyBeam beam = new PolyBeam(PolyBeam.PolyBeamTypeEnum.PANEL);
+                    foreach (var pickedPoint in pickedPoints)
+                    {
+                        beam.AddContourPoint(new ContourPoint(pickedPoint as Point, null));
+                    }
+                    beam.Profile.ProfileString = "4000*300";
+                    beam.Material.MaterialString = "C50";
+                    beam.Position.Depth = Position.DepthEnum.FRONT;
+                    result = beam.Insert();
+                }
+                if (result == true)
+                {
+                    _model.CommitChanges();
+                    MessageBox.Show("创建成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        /// <summary>
+        /// 创建钢筋图纸
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_create_rebar_Click(object sender, EventArgs e)
+        {
+            //使用世界坐标系
+            TransformationPlane current = _model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        /// <summary>
+        /// 获取父类下面的所有子类
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="parentType"></param>
+        /// <returns></returns>
+        public static List<Type> GetChildTypes(Type parentType)
+        {
+            List<Type> lstType = new List<Type>();
+            System.Reflection.Assembly assem = System.Reflection.Assembly.GetAssembly(parentType);
+            foreach (Type tChild in assem.GetTypes())
+            {
+                if (tChild.BaseType == parentType)
+                    lstType.Add(tChild);
+            }
+            return lstType;
         }
     }
 }

@@ -40,13 +40,15 @@
             this.btn_print = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_editor = new System.Windows.Forms.Button();
+            this.btn_create_beam = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // treeView1
             // 
             this.treeView1.Location = new System.Drawing.Point(140, 12);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(311, 304);
+            this.treeView1.Size = new System.Drawing.Size(311, 366);
             this.treeView1.TabIndex = 0;
             // 
             // checkBox1
@@ -148,12 +150,34 @@
             this.btn_editor.UseVisualStyleBackColor = true;
             this.btn_editor.Click += new System.EventHandler(this.btn_editor_Click);
             // 
+            // btn_create_beam
+            // 
+            this.btn_create_beam.Location = new System.Drawing.Point(13, 322);
+            this.btn_create_beam.Name = "btn_create_beam";
+            this.btn_create_beam.Size = new System.Drawing.Size(121, 25);
+            this.btn_create_beam.TabIndex = 21;
+            this.btn_create_beam.Text = "创建墙";
+            this.btn_create_beam.UseVisualStyleBackColor = true;
+            this.btn_create_beam.Click += new System.EventHandler(this.btn_create_beam_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(13, 353);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(121, 25);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "创建钢筋";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.btn_create_rebar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 324);
+            this.ClientSize = new System.Drawing.Size(457, 383);
             this.Controls.Add(this.btn_editor);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_create_beam);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_print);
             this.Controls.Add(this.btn_Create);
@@ -187,6 +211,8 @@
         private System.Windows.Forms.Button btn_print;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_editor;
+        private System.Windows.Forms.Button btn_create_beam;
+        private System.Windows.Forms.Button button2;
     }
 }
 
