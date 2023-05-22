@@ -53,7 +53,7 @@
             // 
             this.checkBox1.Location = new System.Drawing.Point(13, 12);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(92, 25);
+            this.checkBox1.Size = new System.Drawing.Size(120, 25);
             this.checkBox1.TabIndex = 6;
             this.checkBox1.Text = "打开图纸";
             this.checkBox1.UseVisualStyleBackColor = true;

@@ -302,7 +302,7 @@ namespace TeklaOpenApiDrawing
             printAttributes.Orientation = DotPrintOrientationType.Landscape;
             printAttributes.OutputType = DotPrintOutputType.PDF;
             printAttributes.PaperSize = DotPrintPaperSize.A4;
-            printAttributes.PrinterName = "Microsoft Print to PDF"; // Must use local PDF printer name
+            printAttributes.PrinterName = "clawPDF"; // Must use local PDF printer name
             printAttributes.PrintToMultipleSheet = DotPrintToMultipleSheet.Off;
             printAttributes.ScaleFactor = 1.0;
             printAttributes.ScalingMethod = DotPrintScalingType.Auto;
