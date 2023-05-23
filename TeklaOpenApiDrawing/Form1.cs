@@ -503,7 +503,7 @@ namespace TeklaOpenApiDrawing
                     CastUnitDrawing castUnitDrawing = new CastUnitDrawing(identifier);
                     castUnitDrawing.PlaceViews();
                     //wpf -- c#语法 -- .net core -- web api
-                    castUnitDrawing.Title1 = "墙配筋案例W";
+                    castUnitDrawing.Title1 = "墙配筋案例";
                     castUnitDrawing.Name = "创智";
                     var isInsert = castUnitDrawing.Insert();
                     //改为局部坐标系

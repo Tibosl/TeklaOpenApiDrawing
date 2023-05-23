@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModifyDrawing));
             this.drawTitle = new System.Windows.Forms.TextBox();
             this.btn_Title = new System.Windows.Forms.Button();
             this.btn_Size = new System.Windows.Forms.Button();
@@ -120,6 +121,7 @@
             this.Controls.Add(this.btn_Title);
             this.Controls.Add(this.drawTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModifyDrawing";
