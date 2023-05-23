@@ -514,6 +514,7 @@ namespace TeklaOpenApiDrawing
                     else
                     {
                         drawingHandler.SetActiveDrawing(castUnitDrawing, false);
+                        drawingHandler.CloseActiveDrawing();
                     }
                     InitTreeData();
                 }
