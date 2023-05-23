@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Tekla.Structures;
 using Tekla.Structures.Dialog;
 using Tekla.Structures.Drawing;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
+using Tekla.Structures.Model.Operations;
 using Tekla.Structures.Model.UI;
 namespace TeklaOpenApiDrawing
 {
@@ -37,8 +39,8 @@ namespace TeklaOpenApiDrawing
 
         private void ModelEvents_ModelSave()
         {
-            MessageBox.Show("模型保存！");
-            return;
+            //MessageBox.Show("模型保存！");
+            //return;
         }
 
         /// <summary>
@@ -410,8 +412,8 @@ namespace TeklaOpenApiDrawing
 
         private void ModelEvents_Interrupted()
         {
-            MessageBox.Show("事件中断");
-            return;
+            //MessageBox.Show("事件中断");
+            //return;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -441,6 +443,7 @@ namespace TeklaOpenApiDrawing
                     };
                     beam.Profile.ProfileString = "4000*300";
                     beam.Material.MaterialString = "C50";
+                    beam.Name = "PANEL";
                     beam.Position.Depth = Position.DepthEnum.FRONT;
                     result = beam.Insert();
                 }
@@ -453,6 +456,7 @@ namespace TeklaOpenApiDrawing
                     }
                     beam.Profile.ProfileString = "4000*300";
                     beam.Material.MaterialString = "C50";
+                    beam.Name = "PANEL";
                     beam.Position.Depth = Position.DepthEnum.FRONT;
                     result = beam.Insert();
                 }
@@ -476,9 +480,43 @@ namespace TeklaOpenApiDrawing
         {
             //使用世界坐标系
             TransformationPlane current = _model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
+            _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(new TransformationPlane());
             try
             {
-
+                ModelObjectEnumerator modelObject = _model.GetModelObjectSelector().GetAllObjects();
+                while (modelObject.MoveNext())
+                {
+                    if (!((modelObject.Current is Assembly) || (modelObject.Current is PolyBeam))) return;
+                    var drawings = drawingHandler.GetActiveDrawing();
+                    if (drawings != null)
+                    {
+                        MessageBox.Show("请关闭图纸后再操作！");
+                        return;
+                    }
+                    if (!Operation.IsNumberingUpToDate(modelObject.Current))
+                    {
+                        MessageBox.Show("请编号后操作！");
+                        return;
+                    }
+                    var identifier = modelObject.Current.Identifier;
+                    CastUnitDrawing castUnitDrawing = new CastUnitDrawing(identifier);
+                    castUnitDrawing.PlaceViews();
+                    castUnitDrawing.Title1 = "墙配筋案例";
+                    castUnitDrawing.Name = "创智";
+                    var isInsert = castUnitDrawing.Insert();
+                    //改为局部坐标系
+                    _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(current);
+                    var result = MessageBox.Show("是否立刻打开生成的图纸？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        drawingHandler.SetActiveDrawing(castUnitDrawing);
+                    }
+                    else
+                    {
+                        drawingHandler.SetActiveDrawing(castUnitDrawing, false);
+                    }
+                    InitTreeData();
+                }
             }
             catch (Exception)
             {
@@ -501,6 +539,18 @@ namespace TeklaOpenApiDrawing
                     lstType.Add(tChild);
             }
             return lstType;
+        }
+        /// <summary>
+        /// 修改图纸
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_modify_Click(object sender, EventArgs e)
+        {
+            using (ModifyDrawing modifyDrawing = new ModifyDrawing(drawingHandler)) 
+            {
+                modifyDrawing.ShowDialog();
+            }
         }
     }
 }

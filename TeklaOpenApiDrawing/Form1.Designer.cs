@@ -42,6 +42,7 @@
             this.btn_editor = new System.Windows.Forms.Button();
             this.btn_create_beam = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.btn_modify = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // treeView1
@@ -170,11 +171,22 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.btn_create_rebar_Click);
             // 
+            // btn_modify
+            // 
+            this.btn_modify.Location = new System.Drawing.Point(457, 12);
+            this.btn_modify.Name = "btn_modify";
+            this.btn_modify.Size = new System.Drawing.Size(103, 25);
+            this.btn_modify.TabIndex = 22;
+            this.btn_modify.Text = "修改";
+            this.btn_modify.UseVisualStyleBackColor = true;
+            this.btn_modify.Click += new System.EventHandler(this.btn_modify_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 383);
+            this.ClientSize = new System.Drawing.Size(565, 383);
+            this.Controls.Add(this.btn_modify);
             this.Controls.Add(this.btn_editor);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btn_create_beam);
@@ -193,6 +205,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tekla";
             this.ResumeLayout(false);
 
@@ -213,6 +226,7 @@
         private System.Windows.Forms.Button btn_editor;
         private System.Windows.Forms.Button btn_create_beam;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_modify;
     }
 }
 
