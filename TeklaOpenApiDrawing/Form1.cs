@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -501,7 +502,8 @@ namespace TeklaOpenApiDrawing
                     var identifier = modelObject.Current.Identifier;
                     CastUnitDrawing castUnitDrawing = new CastUnitDrawing(identifier);
                     castUnitDrawing.PlaceViews();
-                    castUnitDrawing.Title1 = "墙配筋案例";
+                    //wpf -- c#语法 -- .net core -- web api
+                    castUnitDrawing.Title1 = "墙配筋案例W";
                     castUnitDrawing.Name = "创智";
                     var isInsert = castUnitDrawing.Insert();
                     //改为局部坐标系
